@@ -4,19 +4,18 @@ export const fetchCache = "force-no-store";
 
 import Image from "next/image";
 import Link from "next/link";
-import { supabase } from "@/lib/supabaseClient";
 
+// Supabase removed — fallback: try local API endpoint (/api/posts) or return empty list.
 export default async function BlogGridArea() {
-  console.log(">>> RUNNING BLOGGRIDAREA");
+  console.warn('Supabase removed: BlogGridArea using local fallback for posts.');
 
-  const { data: posts, error } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("status", "published")
-    .order("created_at", { ascending: false });
-
-  console.log(">>> POSTS:", posts);
-  console.log(">>> ERROR:", error);
+  let posts: any[] = [];
+  try {
+    const res = await fetch('/api/posts', { cache: 'no-store' });
+    if (res.ok) posts = await res.json();
+  } catch (e) {
+    // no-op; posts stays empty
+  }
 
   if (!posts || posts.length === 0) {
     return <h3>No blog posts available.</h3>;
@@ -26,7 +25,7 @@ export default async function BlogGridArea() {
     <div className="blog-grid-two mt-50 lg-mt-30 mb-120 lg-mb-60">
       <div className="container">
         <div className="row gx-xxl-5">
-          {posts.map((post) => (
+          {posts.map((post: any) => (
             <div key={post.id} className="col-md-6 mb-60">
               <article className="blog-meta-two style-two">
 
