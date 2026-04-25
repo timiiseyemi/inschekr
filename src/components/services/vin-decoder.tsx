@@ -42,7 +42,7 @@ function CardItem({ icon, title, subtitle }: { icon: StaticImageData; title: str
   return (
     <div className="card-style-sixteen text-center mt-40">
       <div className="icon m-auto tran3s rounded-circle d-flex align-items-center justify-content-center">
-        <Image src={icon} alt="icon" className="lazy-img" />
+        <Image src={icon} alt="icon" className="lazy-img icon-white" />
       </div>
       <h4 className="fw-bold mt-35 lg-mt-30 mb-15">{title}</h4>
       <p className="m0">{subtitle}</p>

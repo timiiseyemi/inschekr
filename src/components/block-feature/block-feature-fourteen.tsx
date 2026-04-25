@@ -1,10 +1,10 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import f_img_1 from "@/assets/images/icon/car.svg";
-import f_img_2 from "@/assets/images/icon/esti.svg";
-import f_img_3 from "@/assets/images/icon/premium.svg";
-import f_img_4 from "@/assets/images/icon/policy.svg";
+import f_img_1 from "@/assets/images/icon/car-insurance.png";
+import f_img_2 from "@/assets/images/icon/money (1).png";
+import f_img_3 from "@/assets/images/icon/calculator.png";
+import f_img_4 from "@/assets/images/icon/file.png";
 import icon from "@/assets/images/icon/icon_09.svg";
 import shape from "@/assets/images/shape/shape_05.svg";
 
@@ -67,7 +67,14 @@ const BlockFeatureFourteen = () => {
                 <div key={f.id} className="col-lg-6 d-flex wow fadeInUp" data-wow-delay="0.1s">
                   <div className="card-style-twenty d-flex position-relative z-1 tran3s w-100 mt-50 md-mt-30">
                     <div className="icon rounded-circle d-flex align-items-center justify-content-center">
-                      <Image src={f.icon} alt="icon" className="lazy-img" />
+                      <Image
+                        src={f.icon}
+                        alt="icon"
+                        width={37}
+                        height={37}
+                        className="lazy-img"
+                        style={{ objectFit: "contain" }}
+                      />
                     </div>
                     <div className="text">
                       <h4 className="fw-bold mb-25">{f.title}</h4>

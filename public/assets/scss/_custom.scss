@@ -49,3 +49,9 @@
     }
   }
 }
+
+/* Utility to force icons to render as white using CSS filters.
+   Works well for SVGs and PNGs with transparent backgrounds. */
+.icon-white {
+  filter: brightness(0) invert(1) !important;
+}

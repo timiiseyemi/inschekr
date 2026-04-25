@@ -6,15 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "build:manifest": "node scripts/build-car-manifest.mjs --csv data/carimagery/vehicles.csv --out public/vehicles",
- "start": "next start",
+    "start": "next start",
     "lint": "next lint"
   },
-
-  
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
     "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^1.9.7",
+    "@supabase/supabase-js": "^2.87.1",
     "@types/react-modal-video": "^1.2.1",
     "@types/react-paginate": "^7.1.2",
     "@types/react-responsive-masonry": "^2.1.1",
@@ -49,5 +48,4 @@
     "iconv-lite": "^0.7.0",
     "typescript": "latest"
   }
-  
 }

@@ -48,7 +48,7 @@
         transition: transform 0.25s;
         -webkit-transform-origin: 50% 50%;
         transform-origin: 50% 50%;
-        background: $color-two;
+        background: $color-four;
     }
     .navbar-toggler span {
         position: absolute;
@@ -60,7 +60,7 @@
         text-indent: 200%;
         -webkit-transition: opacity 0.25s;
         transition: opacity 0.25s;
-        background: $color-two;
+        background: $color-four;
     }
     &.menu-style-three .navbar-toggler:before,
     &.menu-style-three .navbar-toggler:after,
@@ -99,10 +99,10 @@
         color: $color-three;
     }
     &.white-vr {
-        .nav-item .nav-link {color: #fff;}
+        .nav-item .nav-link {color: $color-six;}
         .nav-item:hover .nav-link {color: $color-one;}
         &.fixed {
-            background: $color-three;
+            background: $color-one;
             border: none;
         }
     }
@@ -386,11 +386,11 @@
 @media screen and (max-width: 991px) {
     .navbar {padding: 0;}
     .navbar-collapse .logo {margin-bottom: 10vh; padding-left: 12px;}
-    .white-vr .navbar-collapse {background-color: $color-three;}
-    .navbar-collapse {
-      position: fixed;
-      top: 0;
-      background-color: $light-bg-two;
+    .white-vr .navbar-collapse {background-color: $color-one;}
+        .navbar-collapse {
+            position: fixed;
+            top: 0;
+            background-color: $color-one;
       left: 0;
       height: 100vh;
       max-height: 100vh;

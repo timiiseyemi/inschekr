@@ -4,19 +4,30 @@ $sub-font: 'ClashDisplay';
 $magnita: 'Magnita';
 $bootstrapFont: 'bootstrap-icons';
 
-// Color Settings
-$text-color: rgba(0,0,0,0.7);
-$text-dark: #000;
-$heading: #3a1e0c;
-$color-one: #04d9ab;
-$color-two: #612415;
-$color-three:#3a1e0c;
-$color-four: #E6FD5A;
-$color-five: #0E3E2F;
-$color-six: #DFFF5E;
-$color-seven: #044F3B;
-$color-eight: #1F5E59;
-$color-nine: #04d9ab;
-$light-bg-one: #f5f5f5;
-$light-bg-two: #f5f5f5;
-$cyan: #DCEFF0;
+// Color Settings (mapped to new site palette)
+// New palette provided by user:
+// $color1: #2563EB;
+// $color2: #1E40AF;
+// $color3: #F3F4F6;
+// $color4: #FFFFFF;
+// $color5: #111827;
+
+// Text and headings
+$text-color: rgba(17,24,39,0.75);
+$text-dark: #111827; // dark text color
+$heading: #111827;
+
+// Core colors (legacy variable names mapped to the new palette)
+$color-one: #2563EB; // primary accent -> color1
+$color-two: #1E40AF; // secondary / navbar -> color2
+$color-three: #F3F4F6; // light backgrounds -> color3
+$color-four: #FFFFFF; // white -> color4
+$color-five: #111827; // dark -> color5
+$color-six: #F3F4F6;
+$color-seven: #1E40AF;
+$color-eight: #2563EB;
+
+// Background helpers
+$light-bg-one: #F3F4F6;
+$light-bg-two: #F3F4F6;
+$cyan: #F3F4F6;

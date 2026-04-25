@@ -126,7 +126,7 @@ hr {opacity: 0.09; margin: 5px 0;}
   right: 5px;
   z-index: 99;
   text-align: center;
-  color: $heading;
+  color: white;
   font-size: 25px;
   cursor: pointer;
   border-radius: 50%;
@@ -525,13 +525,13 @@ hr {opacity: 0.09; margin: 5px 0;}
   padding: 0 45px;
   text-align: center;
   border-radius: 40px;
-  color: #1F5E59;
+  color: #F3F4F6;
   min-width: 175px;
-  background-color: $color-nine;
+  background-color: $color-one;
   @include transition(0.3s);
   &:hover {
-    background-color: $color-four;
-    color: $text-dark;
+    background-color: #F3F4F6;
+    color: black;
   }
 }
 // Title Style
@@ -583,4 +583,77 @@ hr {opacity: 0.09; margin: 5px 0;}
     line-height: 1.323em;
     color: #000;
   }
+}
+/* =========================
+   HERO + SLICK FULL FIX
+========================= */
+
+/* Remove any possible spacing */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero wrapper */
+.hero-banner-seven {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Slick container must fill full height */
+.hero-slider-one {
+  height: 100%;
+}
+
+.hero-slider-one .slick-list,
+.hero-slider-one .slick-track,
+.hero-slider-one .slick-slide,
+.hero-slider-one .slick-slide > div {
+  height: 100%;
+}
+
+/* Fix Slick weird behavior */
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: auto !important;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
+
+/* Each slide item */
+.hero-slider-one .item {
+  height: 100%;
+}
+
+/* Background image */
+.hero-img {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Make header sit on top of hero */
+.theme-main-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: transparent;
+}
+
+/* Remove any hidden spacing from wrappers */
+.main-page-wrapper,
+main,
+.container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }

@@ -4,8 +4,7 @@ import React, { useMemo, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-// assets (reuse from your template)
-
+// assets
 import icon_1 from '@/assets/images/icon/icon_72.svg';
 import icon_2 from '@/assets/images/icon/icon_73.svg';
 import icon_3 from '@/assets/images/icon/icon_74.svg';
@@ -15,8 +14,6 @@ import icon_11 from '@/assets/images/icon/icon_82.svg';
 import icon_12 from '@/assets/images/icon/icon_83.svg';
 import icon_13 from '@/assets/images/icon/icon_84.svg';
 import ils_icon from '@/assets/images/assets/ils_03.svg';
-
-const imgStyle = { height: 'auto' } as const;
 
 function ServiceNav({
   icon,
@@ -60,16 +57,14 @@ function CardItem({
 }
 
 /* =========================
-   DATA: Nigerian Insurance Classes
-   ========================= */
+   TYPES
+========================= */
 type TableRow = { feature: string; cells: (boolean | string)[] };
+type ClassTable = { columns: string[]; rows: TableRow[]; notes?: string[] };
 
-type ClassTable = {
-  columns: string[];
-  rows: TableRow[];
-  notes?: string[];
-};
-
+/* =========================
+   CLASSES (EXPANDED 🇳🇬)
+========================= */
 const CLASS_TITLES = [
   'Motor',
   'Fire',
@@ -78,13 +73,21 @@ const CLASS_TITLES = [
   'Travel',
   'Life (Term)',
   'Personal Accident',
+  'Home',
+  'Business',
+  'Goods in Transit',
 ] as const;
+
 type ClassKey = typeof CLASS_TITLES[number];
 
+/* =========================
+   DATA
+========================= */
 const TABLES: Record<ClassKey, ClassTable> = {
   Motor: {
     columns: ['Third-Party', 'Third-Party Fire & Theft', 'Comprehensive'],
     rows: [
+      { feature: 'Required by Law (Nigeria)', cells: [true, true, true] },
       { feature: 'Third-party property damage', cells: [true, true, true] },
       { feature: 'Third-party bodily injury', cells: [true, true, true] },
       { feature: 'Fire (your vehicle)', cells: [false, true, true] },
@@ -92,11 +95,12 @@ const TABLES: Record<ClassKey, ClassTable> = {
       { feature: 'Accidental damage (your vehicle)', cells: [false, false, true] },
       { feature: 'Windscreen', cells: ['—', 'Optional', 'Optional/Included'] },
       { feature: 'Personal effects', cells: ['—', '—', 'Optional/Included'] },
-      { feature: 'Excess (out-of-pocket)', cells: ['Low', 'Medium', 'Varies by plan'] },
+      { feature: 'Towing & recovery', cells: ['—', 'Optional', 'Included'] },
+      { feature: 'Excess (out-of-pocket)', cells: ['Low', 'Medium', 'Varies'] },
     ],
     notes: [
-      'Third-Party is the legal minimum; Comprehensive offers the widest cover.',
-      'Benefits vary by insurer; always review policy schedule & wording.',
+      'Third-party insurance is mandatory in Nigeria.',
+      'Comprehensive gives full protection including your own vehicle.',
     ],
   },
 
@@ -105,83 +109,61 @@ const TABLES: Record<ClassKey, ClassTable> = {
     rows: [
       { feature: 'Fire & Lightning', cells: [true, true, true] },
       { feature: 'Explosion (domestic)', cells: [true, true, true] },
-      { feature: 'Allied Perils (storm, flood, impact)', cells: [false, true, true] },
-      { feature: 'Burglary with forcible entry', cells: [false, 'Optional', true] },
-      { feature: 'Business interruption (loss of profits)', cells: [false, 'Optional', 'Optional/Included'] },
-      { feature: 'Debris removal & professional fees', cells: ['—', 'Optional', 'Optional/Included'] },
-      { feature: 'Contents/Stock', cells: ['Optional', 'Optional', 'Optional/Included'] },
-    ],
-    notes: [
-      'Sum insured should reflect replacement value (buildings/contents).',
-      'Flood & storm may be subject to special terms depending on location.',
+      { feature: 'Flood/Storm', cells: [false, true, true] },
+      { feature: 'Burglary', cells: [false, 'Optional', true] },
+      { feature: 'Business interruption', cells: [false, 'Optional', 'Optional/Included'] },
+      { feature: 'Debris removal', cells: ['—', 'Optional', 'Included'] },
+      { feature: 'Contents/Stock', cells: ['Optional', 'Optional', 'Included'] },
     ],
   },
 
   'Marine Cargo': {
-    columns: ['ICC(C) Basic', 'ICC(B) Intermediate', 'ICC(A) All Risks'],
+    columns: ['ICC(C)', 'ICC(B)', 'ICC(A) All Risks'],
     rows: [
-      { feature: 'Named perils (e.g., fire, stranding)', cells: [true, true, true] },
+      { feature: 'Fire/Stranding', cells: [true, true, true] },
       { feature: 'Theft/Pilferage', cells: [false, 'Limited', true] },
-      { feature: 'General average & salvage charges', cells: [true, true, true] },
-      { feature: 'War & strikes (add-ons)', cells: ['Optional', 'Optional', 'Optional'] },
+      { feature: 'Water damage', cells: [false, 'Limited', true] },
+      { feature: 'General average', cells: [true, true, true] },
       { feature: 'Warehouse-to-warehouse', cells: ['Optional', 'Optional', 'Included'] },
-      { feature: 'Breakage/Water damage (goods)', cells: [false, 'Limited', true] },
-      { feature: 'Deductibles/Excess', cells: ['Applies', 'Applies', 'Applies'] },
-    ],
-    notes: [
-      'Covers imports/exports; institute clauses (A/B/C) set coverage scope.',
-      'Commodity, packing, and voyage affect premium & terms.',
+      { feature: 'War/Strike cover', cells: ['Optional', 'Optional', 'Optional'] },
     ],
   },
 
   'Health (HMO)': {
     columns: ['Basic', 'Standard', 'Enhanced'],
     rows: [
-      { feature: 'Primary care (GP/Clinic)', cells: [true, true, true] },
-      { feature: 'Specialist consultation', cells: ['Limited', true, true] },
-      { feature: 'Diagnostics (labs, scans)', cells: ['Limited', true, 'Enhanced'] },
-      { feature: 'Maternity', cells: ['—/Optional', 'Optional', 'Included (limits apply)'] },
-      { feature: 'Emergency & ambulance', cells: ['Limited', true, 'Enhanced'] },
-      { feature: 'Hospitalization (in-patient)', cells: ['Limited', true, 'Enhanced'] },
-      { feature: 'Dental & optical', cells: ['—/Optional', 'Optional', 'Optional/Included'] },
-      { feature: 'Pre-existing conditions', cells: ['Waiting period', 'Waiting period', 'Broader with terms'] },
-    ],
-    notes: [
-      'Provider networks & limits vary by HMO; check benefit tables & exclusions.',
-      'Maternity often has a waiting period; confirm timelines & limits.',
+      { feature: 'Primary care', cells: [true, true, true] },
+      { feature: 'Specialist care', cells: ['Limited', true, true] },
+      { feature: 'Diagnostics', cells: ['Limited', true, 'Enhanced'] },
+      { feature: 'Hospitalization', cells: ['Limited', true, 'Enhanced'] },
+      { feature: 'Emergency care', cells: ['Limited', true, 'Enhanced'] },
+      { feature: 'Maternity', cells: ['—/Optional', 'Optional', 'Included'] },
+      { feature: 'Dental & Optical', cells: ['—/Optional', 'Optional', 'Optional/Included'] },
+      { feature: 'Pre-existing conditions', cells: ['Waiting', 'Waiting', 'Broader'] },
     ],
   },
 
   Travel: {
-    columns: ['Schengen Basic', 'Worldwide Standard', 'Worldwide Plus'],
+    columns: ['Basic', 'Standard', 'Premium'],
     rows: [
-      { feature: 'Emergency medical expenses', cells: ['€30k–€60k', '$50k–$100k', '$100k–$500k'] },
-      { feature: 'Medical evacuation/repatriation', cells: [true, true, true] },
-      { feature: 'Trip cancellation/curtailment', cells: ['—/Optional', 'Optional', 'Included'] },
-      { feature: 'Baggage loss/delay', cells: ['Limited', 'Standard', 'Enhanced'] },
+      { feature: 'Medical expenses', cells: ['€30k+', '$50k+', '$100k+'] },
+      { feature: 'Evacuation', cells: [true, true, true] },
+      { feature: 'Trip cancellation', cells: ['—/Optional', 'Optional', 'Included'] },
+      { feature: 'Baggage loss', cells: ['Limited', 'Standard', 'Enhanced'] },
       { feature: 'Personal liability', cells: ['—/Optional', 'Optional', 'Included'] },
-      { feature: 'Visa letter support', cells: [true, true, true] },
-    ],
-    notes: [
-      'Choose coverage to match embassy requirements and destination healthcare costs.',
-      'Age limits and pre-existing conditions may affect eligibility.',
+      { feature: 'Visa support', cells: [true, true, true] },
     ],
   },
 
   'Life (Term)': {
-    columns: ['Pure Term', 'Term + Accidental Death', 'Term + Riders'],
+    columns: ['Basic', 'Standard', 'With Riders'],
     rows: [
-      { feature: 'Death benefit (sum assured)', cells: [true, true, true] },
-      { feature: 'Accidental death benefit', cells: [false, true, 'Optional/Included'] },
-      { feature: 'Critical illness rider', cells: [false, 'Optional', 'Optional/Included'] },
-      { feature: 'Permanent disability rider', cells: [false, 'Optional', 'Optional/Included'] },
+      { feature: 'Death benefit', cells: [true, true, true] },
+      { feature: 'Accidental death', cells: [false, true, true] },
+      { feature: 'Critical illness', cells: [false, 'Optional', 'Optional/Included'] },
+      { feature: 'Disability cover', cells: [false, 'Optional', 'Optional/Included'] },
       { feature: 'Premium waiver', cells: [false, 'Optional', 'Optional/Included'] },
-      { feature: 'Cash value/savings', cells: ['No', 'No', 'No (term plans)'] },
       { feature: 'Policy term', cells: ['5–30 yrs', '5–30 yrs', '5–30 yrs'] },
-    ],
-    notes: [
-      'Term life provides pure protection; no cash value.',
-      'Underwriting depends on age, health, sum assured, and occupation.',
     ],
   },
 
@@ -189,56 +171,56 @@ const TABLES: Record<ClassKey, ClassTable> = {
     columns: ['Basic', 'Standard', 'Enhanced'],
     rows: [
       { feature: 'Accidental death', cells: [true, true, true] },
-      { feature: 'Permanent disability (PTD/PPD)', cells: ['Limited', true, 'Enhanced'] },
-      { feature: 'Temporary total disability (TTD)', cells: ['—', 'Optional', 'Included (weekly benefit)'] },
-      { feature: 'Medical expenses (accident)', cells: ['Limited', 'Standard', 'Enhanced'] },
-      { feature: 'Hospital cash', cells: ['—', 'Optional', 'Optional/Included'] },
-      { feature: 'Funeral expenses', cells: ['—', 'Optional', 'Optional/Included'] },
-      { feature: 'Sports/motorcycling (terms)', cells: ['Exclusions apply', 'Exclusions apply', 'Exclusions with buy-back'] },
+      { feature: 'Permanent disability', cells: ['Limited', true, 'Enhanced'] },
+      { feature: 'Temporary disability', cells: ['—', 'Optional', 'Included'] },
+      { feature: 'Medical expenses', cells: ['Limited', 'Standard', 'Enhanced'] },
+      { feature: 'Hospital cash', cells: ['—', 'Optional', 'Included'] },
+      { feature: 'Funeral expenses', cells: ['—', 'Optional', 'Included'] },
     ],
-    notes: [
-      'Benefits are paid as fixed sums or reimbursements per schedule.',
-      'Certain high-risk activities may be excluded unless bought back.',
+  },
+
+  Home: {
+    columns: ['Basic', 'Standard', 'Premium'],
+    rows: [
+      { feature: 'Fire & Lightning', cells: [true, true, true] },
+      { feature: 'Burglary', cells: ['Optional', true, true] },
+      { feature: 'Flood', cells: [false, 'Optional', true] },
+      { feature: 'Contents', cells: ['Limited', true, 'Enhanced'] },
+      { feature: 'Liability', cells: [false, 'Optional', true] },
+    ],
+  },
+
+  Business: {
+    columns: ['Basic', 'SME', 'Enterprise'],
+    rows: [
+      { feature: 'Fire cover', cells: [true, true, true] },
+      { feature: 'Liability', cells: ['Optional', true, true] },
+      { feature: 'Theft', cells: ['Optional', true, true] },
+      { feature: 'Business interruption', cells: [false, 'Optional', true] },
+    ],
+  },
+
+  'Goods in Transit': {
+    columns: ['Basic', 'Standard', 'All Risk'],
+    rows: [
+      { feature: 'Transit damage', cells: [true, true, true] },
+      { feature: 'Theft', cells: [false, 'Limited', true] },
+      { feature: 'Accidental loss', cells: ['Limited', true, true] },
+      { feature: 'Loading/unloading', cells: ['Limited', true, true] },
     ],
   },
 };
 
 /* =========================
-   UI Helpers
-   ========================= */
+   HELPERS
+========================= */
 function TickCell(v: boolean | string) {
-  if (typeof v === 'boolean') {
-    return <span>{v ? '✔️' : '—'}</span>;
-  }
-  return <span>{v}</span>;
-}
-
-function ClassTabs({
-  selected,
-  onSelect,
-}: {
-  selected: ClassKey;
-  onSelect: (k: ClassKey) => void;
-}) {
-  return (
-    <div className="d-flex flex-wrap gap-2 mb-3">
-      {CLASS_TITLES.map((k) => (
-        <button
-          key={k}
-          type="button"
-          onClick={() => onSelect(k)}
-          className={`btn ${selected === k ? 'btn-dark' : 'btn-outline-dark'} rounded-3`}
-        >
-          {k}
-        </button>
-      ))}
-    </div>
-  );
+  return <span>{typeof v === 'boolean' ? (v ? '✔️' : '—') : v}</span>;
 }
 
 /* =========================
-   PAGE
-   ========================= */
+   COMPONENT
+========================= */
 const PolicyComparison: React.FC = () => {
   const [klass, setKlass] = useState<ClassKey>('Motor');
   const table = useMemo(() => TABLES[klass], [klass]);
@@ -247,104 +229,96 @@ const PolicyComparison: React.FC = () => {
     <div className="service-details mt-150 lg-mt-80 mb-100 lg-mb-80">
       <div className="container">
         <div className="row">
-          {/* Main Column */}
+
+          {/* MAIN */}
           <div className="col-xxl-9 col-lg-8 order-lg-last">
             <div className="details-meta ps-xxl-5 ps-xl-3">
               <h2>Policy Comparison — InSchekr</h2>
-              <p>
-                Compare Nigerian insurance classes side by side — including{' '}
-                <strong>Motor</strong>, <strong>Fire</strong>, <strong>Marine Cargo</strong>,{' '}
-                <strong>Health</strong>, <strong>Travel</strong>, <strong>Life (Term)</strong>, and{' '}
-                <strong>Personal Accident</strong>. Use the tabs to switch classes, then review benefits across
-                typical plan levels.
-              </p>
+              <p>Compare insurance options across Nigeria.</p>
 
-              
+              <div className="light-bg-deep p-3 p-md-5 rounded-4">
+                <h3 className="mb-2">Compare Policies</h3>
 
-              {/* Tabs + Table */}
-              <div className="light-bg-deep p-4 p-md-5 rounded-4">
-                <div className="d-flex flex-column gap-2">
-                  <h3 className="mb-2">Compare Policies</h3>
-                  <ClassTabs selected={klass} onSelect={setKlass} />
+                {/* DROPDOWN */}
+                <select
+                  value={klass}
+                  onChange={(e) => setKlass(e.target.value as ClassKey)}
+                  className="form-select mb-3"
+                >
+                  {CLASS_TITLES.map((k) => (
+                    <option key={k} value={k}>{k}</option>
+                  ))}
+                </select>
 
-                  <div className="table-responsive">
-                    <table className="table align-middle">
-                      <thead>
-                        <tr>
-                          <th className="text-muted">Feature</th>
-                          {table.columns.map((c, i) => (
-                            <th key={i}>{c}</th>
+                {/* QUICK INSIGHT */}
+                <p className="text-muted mb-3">
+                  💡 Most users choose <strong>{table.columns[1]}</strong> for a balance between cost and coverage.
+                </p>
+
+                {/* TABLE */}
+                <div className="table-responsive">
+                  <table className="table align-middle">
+                    <thead>
+                      <tr>
+                        <th className="text-muted">Feature</th>
+                        {table.columns.map((c, i) => <th key={i}>{c}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {table.rows.map((r, idx) => (
+                        <tr key={idx}>
+                          <td className="text-muted">{r.feature}</td>
+                          {r.cells.map((c, ii) => (
+                            <td key={ii}>{TickCell(c)}</td>
                           ))}
                         </tr>
-                      </thead>
-                      <tbody>
-                        {table.rows.map((r, idx) => (
-                          <tr key={idx}>
-                            <td className="text-muted">{r.feature}</td>
-                            {r.cells.map((c, ii) => (
-                              <td key={ii}>{TickCell(c)}</td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {!!table.notes?.length && (
-                    <ul className="small text-muted mt-2 mb-0">
-                      {table.notes.map((n, i) => (
-                        <li key={i}>{n}</li>
                       ))}
-                    </ul>
-                  )}
+                    </tbody>
+                  </table>
+                </div>
 
-                  <div className="mt-4 d-flex gap-3 flex-wrap">
-                    <Link href="/service-details" className="btn btn-dark rounded-3">
-                      Estimate Premium
-                    </Link>
-                    <Link href="/contact" className="btn btn-primary rounded-3">
-                      Buy Insurance
-                    </Link>
-                  </div>
+                {/* NOTES */}
+                {!!table.notes?.length && (
+                  <ul className="small text-muted mt-2 mb-0">
+                    {table.notes.map((n, i) => <li key={i}>{n}</li>)}
+                  </ul>
+                )}
+
+                <div className="mt-4 d-flex gap-3 flex-wrap">
+                  <Link href="/service-details" className="btn btn-dark rounded-3">
+                    Estimate Premium
+                  </Link>
+                  <Link href="/contact" className="btn btn-primary rounded-3">
+                    Buy Insurance
+                  </Link>
                 </div>
               </div>
 
-              {/* How it works */}
+              {/* HOW IT WORKS (UPDATED TEXT) */}
               <h3 className="mt-60 lg-mt-40">How It Works</h3>
               <p>Three quick steps to choose confidently:</p>
+
               <div className="line-wrapper pb-30 mt-40 lg-mt-30 mb-70 lg-mb-40">
                 <div className="row">
-                  <div className="col-md-4 wow fadeInUp">
-                    <CardItem
-                      icon={icon_10}
-                      title="Pick a Class"
-                      subtitle="Switch tabs to Motor, Fire, Marine, Health, Travel, Life, or PA."
-                    />
+                  <div className="col-md-4">
+                    <CardItem icon={icon_10} title="Select a Class" subtitle="Choose insurance type from dropdown." />
                   </div>
-                  <div className="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <CardItem
-                      icon={icon_11}
-                      title="Compare Benefits"
-                      subtitle="See coverage differences across typical plan levels."
-                    />
+                  <div className="col-md-4">
+                    <CardItem icon={icon_11} title="Compare Options" subtitle="Review coverage levels easily." />
                   </div>
-                  <div className="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
-                    <CardItem
-                      icon={icon_12}
-                      title="Estimate & Buy"
-                      subtitle="Use the calculator, then proceed to purchase."
-                    />
+                  <div className="col-md-4">
+                    <CardItem icon={icon_12} title="Proceed" subtitle="Estimate premium and purchase." />
                   </div>
                 </div>
               </div>
 
-              {/* Quote */}
+              {/* QUOTE */}
               <div className="light-bg-deep quote-wrapper position-relative mb-60 lg-mb-40">
                 <div className="d-xl-flex align-items-start">
                   <Image src={icon_13} alt="icon" className="lazy-img icon" />
                   <div className="ps-xl-5">
                     <blockquote>
-                      This made it easy to understand what I’m getting for each plan. I chose exactly what I needed.
+                      This made it easy to understand what I’m getting for each plan.
                     </blockquote>
                     <div><span className="fw-bold">Chika N.</span> Lagos</div>
                   </div>
@@ -352,24 +326,17 @@ const PolicyComparison: React.FC = () => {
                 <Image src={ils_icon} alt="ils_icon" className="lazy-img shapes shape_01" />
               </div>
 
-              <h3>Notes</h3>
-              <ul className="style-none list-item pb-20">
-                <li>Coverage, limits, and exclusions vary by insurer and policy wording.</li>
-                <li>Some benefits may require add-ons or riders; waiting periods may apply (e.g., health, maternity).</li>
-                <li>Always review your quotation, schedule, and full policy wording before purchase.</li>
-              </ul>
             </div>
           </div>
 
-          {/* Sidebar */}
+          {/* SIDEBAR */}
           <div className="col-xxl-3 col-lg-4 order-lg-first">
             <aside className="md-mt-40">
               <div className="service-nav-item">
                 <ul className="style-none">
                   <ServiceNav icon={icon_1} title="Premium Calculator" url="/service-details" />
-                  <ServiceNav icon={icon_2} title="VIN / Chassis Decoder" url="/vin-decoder" />
+                  <ServiceNav icon={icon_2} title="VIN Decoder" url="/vin-decoder" />
                   <ServiceNav icon={icon_3} title="Car Value Estimator" url="/car-value-estimator" />
-                  
                   <ServiceNav icon={icon_4} title="Compare Policies" url="/policy-comparison" active />
                 </ul>
               </div>
@@ -380,6 +347,7 @@ const PolicyComparison: React.FC = () => {
               </div>
             </aside>
           </div>
+
         </div>
       </div>
     </div>

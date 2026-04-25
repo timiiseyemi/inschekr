@@ -23,6 +23,7 @@ const slider_setting = {
   autoplay: true,
   fade: true,
   autoplaySpeed: 7000,
+  adaptiveHeight: false, // 🔥 important
 };
 const HeroBannerSeven = () => {
   return (
