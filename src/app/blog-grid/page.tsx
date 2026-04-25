@@ -5,7 +5,7 @@ import HeaderSeven from "@/layout/header/header-seven";
 import FancyBannerThree from "@/components/fancy-banner/fancy-banner-three";
 import BreadcrumbTwo from "@/components/breadcrumb/breadcrumb-two";
 import FooterTwo from "@/layout/footer/footer-two";
-import BlogGridAreaServer from "./BlogGridAreaServer";
+
 
 
 export const metadata: Metadata = {
@@ -28,9 +28,7 @@ const BlogGridPage = () => {
           />
           {/* breadcrumb end */}
 
-          {/* blog grid area start */}
-          <BlogGridAreaServer />
-          {/* blog grid area end */}
+          
 
           {/* fancy banner three start */}
           <FancyBannerThree />

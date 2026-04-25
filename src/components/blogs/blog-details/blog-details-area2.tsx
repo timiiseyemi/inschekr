@@ -4,8 +4,7 @@ import Link from "next/link";
 // internal
 import BlogSidebar from "../blog-sidebar";
 import blog_1 from "@/assets/images/blog/blog_img_01.jpg";
-import blog_2 from "@/assets/images/blog/blog_img_16.jpg";
-import blog_3 from "@/assets/images/blog/blog_img_17.jpg";
+
 import icon from "@/assets/images/icon/icon_93.svg";
 
 import { IBlog } from "@/types/blog-d-t";
