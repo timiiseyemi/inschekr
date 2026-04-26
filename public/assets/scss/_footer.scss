@@ -184,6 +184,12 @@
         left: 40px;
         bottom: 64px;
     }
+    /* footer logo sizing */
+    .logo .footer-logo {
+        max-height: 125px;
+        width: auto;
+        height: auto;
+    }
 }
 // Footer Three 
 .footer-three {
@@ -197,6 +203,11 @@
         background: $color-three;
         &.color-two {
             background: $color-three;
+        }
+        .logo .footer-logo {
+            max-height: 90px;
+            width: auto;
+            height: auto;
         }
     }
     .footer-intro p a {

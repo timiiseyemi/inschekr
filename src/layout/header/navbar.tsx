@@ -5,6 +5,7 @@ import Image from "next/image";
 // internal
 import logo from "@/assets/images/logo/logo2.svg";
 import logo_2 from "@/assets/images/logo/logo.svg";
+import logo1 from '@/assets/images/logo/1.png';
 
 import menu_data from "@/data/menu-data";
 import { usePathname } from "next/navigation";
@@ -16,7 +17,8 @@ const Navbar = ({logo_white=false}:{logo_white?:boolean}) => {
       <li className="d-block d-lg-none">
         <div className="logo">
           <Link href="/" className="d-block">
-            <Image src={logo_white?logo_2:logo} alt="logo" />
+            {/* Mobile collapsed menu logo: use 1.png and constrain size */}
+            <Image src={logo1} alt="logo" className="mobile-menu-logo" width={140} height={40} style={{objectFit: 'contain'}} />
           </Link>
         </div>
       </li>

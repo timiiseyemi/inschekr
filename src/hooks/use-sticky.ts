@@ -3,21 +3,24 @@ import { useEffect, useState } from "react";
 
 const useSticky = () => {
     const [sticky,setSticky] = useState(false);
+    const [scrolled,setScrolled] = useState(false);
 
     const stickyHeader = () => {
-        if(window.scrollY > 80){
-            setSticky(true)
-        }
-        else{
-            setSticky(false)
-        }
+        const y = window.scrollY || window.pageYOffset;
+        setScrolled(y > 10);
+        setSticky(y > 80);
     }
+
     useEffect(() => {
-        window.addEventListener('scroll',stickyHeader)
+        window.addEventListener('scroll',stickyHeader);
+        // run once to set initial state
+        stickyHeader();
+        return () => window.removeEventListener('scroll',stickyHeader);
     },[]);
 
     return {
         sticky,
+        scrolled,
     }
 
 }

@@ -520,6 +520,13 @@
             z-index: 1;
             background: #fff;
         }
+        .icon-img {
+            display: block;
+            max-width: 270px;
+            max-height: 270px;
+            margin: 0 auto;
+            object-fit: contain;
+        }
     }
 }
 // Pricing Card

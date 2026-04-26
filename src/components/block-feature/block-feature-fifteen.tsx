@@ -2,9 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import shape from "@/assets/images/shape/shape_05.svg";
-import f_img_1 from "@/assets/images/assets/ils_08.svg";
-import f_img_2 from "@/assets/images/assets/ils_09.svg";
-import f_img_3 from "@/assets/images/assets/ils_10.svg";
+import f_img_1 from "@/assets/images/assets/4.png";
+import f_img_2 from "@/assets/images/assets/6.png";
+import f_img_3 from "@/assets/images/assets/5.png";
 
 const feature_data = [
   {
@@ -48,7 +48,7 @@ const BlockFeatureFifteen = () => {
               >
                 <div className="card-style-twentyOne mt-40">
                   <div className="icon rounded-circle m-auto position-relative d-flex align-items-center justify-content-center">
-                    <Image src={f.img} alt="" className="lazy-img" />
+                    <Image src={f.img} alt={`feature-${f.id}`} className="lazy-img icon-img" width={520} height={520} style={{objectFit: 'contain'}} />
                     <span className="numb position-absolute d-flex align-items-center justify-content-center rounded-circle">
                       {f.id}
                     </span>

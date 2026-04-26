@@ -1,13 +1,17 @@
 .theme-main-menu {
-    background: #fff;
-    position: relative;
-    z-index: 999;
+    /* default: transparent at top */
+    background: transparent;
+    position: absolute; /* overlay by default */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
     padding: 18px 40px;
-    // box-shadow: 0 13px 35px -12px rgb(35 35 35 / 10%);
-    @include transition(0.4s);
+    @include transition(0.35s);
     &.menu-overlay {
+        /* overlay variant remains absolute/transparent unless scrolled */
         position: absolute;
-        top:0;
+        top: 0;
         right: 0;
         left: 0;
         background: transparent;
@@ -18,8 +22,22 @@
         right: 0;
         padding-top: 5px;
         padding-bottom: 5px;
-        background: #fff;
-        box-shadow: 0 13px 35px -12px rgb(35 35 35 / 10%);
+        @include transition(0.25s);
+    }
+
+    /* Glass effect applied when user scrolls (class added via useSticky) */
+    &.scrolled {
+        background: rgba(59,130,246,0.12); /* semi-transparent blue */
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.06);
+        box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        @include transition(0.35s);
     }
     .navbar-toggler {
         width: 48px;
@@ -89,20 +107,22 @@
         font-weight: 500;
         font-size: 20px;
         line-height: initial;
-        color: $text-dark;
+        color: #fff; /* ensure white, readable text */
         padding: 20px 0;
         margin: 0 30px;
         position: relative;
         @include transition(0.2s);
+        text-shadow: 0 1px 0 rgba(0,0,0,0.25);
     }
     .nav-item:hover .nav-link {
-        color: $color-three;
+        color: rgba(255,255,255,0.95);
     }
     &.white-vr {
+        /* keep existing white-vr behavior but ensure readability on glass */
         .nav-item .nav-link {color: $color-six;}
         .nav-item:hover .nav-link {color: $color-one;}
         &.fixed {
-            background: $color-one;
+            background: rgba(59,130,246,0.18);
             border: none;
         }
     }
@@ -380,12 +400,34 @@
     }
     .navbar .show.dropdown-toggle::after {transform: rotate(180deg);}
 
+    /* Desktop header logo sizing */
+    .theme-main-menu .logo .site-logo,
+    .navbar .logo .site-logo {
+        max-height: 100px;
+        width: auto;
+        height: auto;
+    }
+
 }
 
 /*----- For Mobile ----*/
 @media screen and (max-width: 991px) {
     .navbar {padding: 0;}
     .navbar-collapse .logo {margin-bottom: 10vh; padding-left: 12px;}
+    /* mobile collapsed menu logo */
+    .navbar-collapse .logo .mobile-menu-logo,
+    .navbar .logo .mobile-menu-logo {
+        max-height: 95px;
+        width: auto;
+        height: auto;
+    }
+    /* Ensure header logo scales correctly */
+    .theme-main-menu .logo .site-logo,
+    .navbar .logo .site-logo {
+        max-height: 80px;
+        width: auto;
+        height: auto;
+    }
     .white-vr .navbar-collapse {background-color: $color-one;}
         .navbar-collapse {
             position: fixed;

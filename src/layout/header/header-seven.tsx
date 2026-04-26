@@ -3,22 +3,30 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 // internal
-import logo from '@/assets/images/logo/logo.svg';
+import logo from '@/assets/images/logo/3.png';
+import logo1 from '@/assets/images/logo/1.png';
 import Navbar from './navbar';
 
 import useSticky from '@/hooks/use-sticky';
 
 const HeaderSeven = () => {
-  const {sticky} = useSticky();
+  const {sticky, scrolled} = useSticky();
   return (
     <>
-      <header className={`theme-main-menu menu-overlay white-vr sticky-menu ${sticky?'fixed':''}`}>
+      <header className={`theme-main-menu menu-overlay white-vr sticky-menu ${sticky?'fixed':''} ${scrolled? 'scrolled' : ''}`}>
         <div className="inner-content position-relative">
           <div className="top-header">
             <div className="d-flex align-items-center justify-content-between">
               <div className="logo order-lg-0">
                 <Link href="/home-7" className="d-flex align-items-center">
-                  <Image src={logo} alt="logo" />
+                  <Image
+                    src={scrolled ? logo1 : logo}
+                    alt="logo"
+                    className="site-logo"
+                    width={160}
+                    height={48}
+                    style={{ objectFit: 'contain' }}
+                  />
                 </Link>
               </div>
 

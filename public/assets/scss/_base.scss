@@ -641,7 +641,7 @@ html, body {
 }
 
 /* Make header sit on top of hero */
-.theme-main-menu {
+.theme-main-menu.menu-overlay {
   position: absolute;
   top: 0;
   left: 0;

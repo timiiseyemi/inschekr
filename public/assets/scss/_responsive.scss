@@ -166,6 +166,11 @@
   .footer-two .bg-wrapper {padding: 50px 20px 30px;}
   .footer-two .bg-wrapper .shapes {display: none !important;}
   .footer-two .copyright {position: static; margin-top: 15px;}
+  /* FooterThree round logo smaller on mobile */
+  .footer-three .round-bg .logo .footer-logo {max-height: 64px;}
+
+  /* smaller footer logo on mobile */
+  .footer-two .logo .footer-logo {max-height: 76px;}
   .hero-banner-three .right-widget .main-count {font-size: 35px; margin: 0 0 -5px;}
   .hero-banner-three .right-widget .icon {width: 70px;}
   .card-style-eight {padding: 30px 15px;}

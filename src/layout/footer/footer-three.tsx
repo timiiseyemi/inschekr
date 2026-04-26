@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 // internal
-import logo from '@/assets/images/logo/logo2.svg';
+import logo from '@/assets/images/logo/1.png';
 import shape_1 from '@/assets/images/shape/shape_36.svg';
 import shape_2 from '@/assets/images/shape/shape_37.svg';
 import shape_3 from '@/assets/images/shape/shape_39.svg';
@@ -18,7 +18,7 @@ const FooterThree = ({style_2}:{style_2?:boolean}) => {
 							<div className={`round-bg ${style_2?'color-two':''} rounded-circle text-center d-flex flex-column align-items-center justify-content-center`}>
 								<div className="logo mb-15">
 									<Link href="/">
-										<Image src={logo} alt="logo"/>
+										<Image src={logo} alt="logo" className="footer-logo" width={140} height={48} style={{objectFit: 'contain'}} />
 									</Link>
 								</div> 
 								<p className="lh-sm mb-45 lg-mb-30">Lagos, Nigeria</p>

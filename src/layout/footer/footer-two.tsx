@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 // internal
-import logo from '@/assets/images/logo/logo2.svg';
+import logo from '@/assets/images/logo/1.png';
 import shape from '@/assets/images/shape/shape_06.svg';
 
 
@@ -20,7 +20,7 @@ const FooterTwo = ({bg=true}:IProps) => {
             <div className="col-xl-3 col-lg-4 footer-intro mb-30">
               <div className="logo mb-35 md-mb-20">
                 <Link href="/">
-                  <Image src={logo} alt="logo"/>
+                  <Image src={logo} alt="logo" className="footer-logo" width={140} height={140} style={{objectFit: 'contain'}} />
                 </Link>
               </div> 
               <p className="lh-sm mb-40 md-mb-20">
