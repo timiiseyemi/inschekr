@@ -49,7 +49,7 @@ function CardItem({icon,title,subtitle}:{icon:StaticImageData;title:string;subti
   return (
     <div className="card-style-sixteen text-center mt-40">
       <div className="icon m-auto tran3s rounded-circle d-flex align-items-center justify-content-center">
-        <Image src={icon} alt="icon" className="lazy-img"/>
+        <Image src={icon} alt="icon" className="lazy-img icon-white"/>
        </div>
       <h4 className="fw-bold mt-35 lg-mt-30 mb-15">{title}</h4>
       <p className="m0">{subtitle}</p>
@@ -119,16 +119,15 @@ const ServiceDetailsArea = () => {
 
           <div className="col-xxl-3 col-lg-4 order-lg-first">
             <aside className="md-mt-40">
-              <div className="service-nav-item">
-                <ul className="style-none">
-                 <ServiceNav icon={icon_1} title="Premium Calculator" url="/service-details" active/>
-<ServiceNav icon={icon_2} title="VIN / Chassis Decoder" url="/vin-decoder" />
-<ServiceNav icon={icon_3} title="Car Value Estimator" url="/car-value-estimator"  />
-<ServiceNav icon={icon_4} title="Compare Policies" url="/policy-comparison" />
+                      <div className="service-nav-item">
+                        <ul className="style-none">
+                         <ServiceNav icon={icon_1} title="Premium Calculator" url="/service-details" active/>
+        <ServiceNav icon={icon_2} title="VIN / Chassis Decoder" url="/vin-decoder" />
+        <ServiceNav icon={icon_3} title="Car Value Estimator" url="/car-value-estimator"  />
+        <ServiceNav icon={icon_4} title="Compare Policies" url="/policy-comparison" />
 
-                  
-                </ul>
-              </div>
+                        </ul>
+                      </div>
               <div className="contact-banner text-center mt-40 lg-mt-20">
                 <h3 className="mb-20">Any Questions? Let’s talk</h3>
                 <Link href="/contact" className="tran3s fw-500">Let’s Talk</Link>

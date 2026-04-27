@@ -31,7 +31,7 @@ function ServiceNav({
   return (
     <li>
       <Link href={url} className={`d-flex align-items-center w-100 ${active ? 'active' : ''}`}>
-        <Image src={icon} alt="icon" className="lazy-img" />
+        <Image src={icon} alt="icon" className="lazy-img icon-white" />
         <span>{title}</span>
       </Link>
     </li>

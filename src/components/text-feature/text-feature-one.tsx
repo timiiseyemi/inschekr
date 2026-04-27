@@ -3,15 +3,16 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 // internal
 import icon from "@/assets/images/icon/icon_09.svg";
-import icon_2 from "@/assets/images/icon/icon_10.svg";
-import icon_3 from "@/assets/images/icon/icon_11.svg";
+import icon_2 from "@/assets/images/icon/target.png";
+import icon_3 from "@/assets/images/icon/binocular.png";
 import shape from "@/assets/images/shape/shape_05.svg";
 
 // card item
 function CardItem({icon,title,desc}:{icon:StaticImageData;title:string;desc:string}) {
   return (
     <div className="card-style-three d-flex pt-75 lg-pt-40 pb-45 lg-pb-20">
-      <Image src={icon} alt="icon" className="lazy-img icon" />
+      {/* set intrinsic size and a helper class so CSS can control scale */}
+      <Image src={icon} alt="icon" className="lazy-img icon card-icon" width={48} height={48} style={{objectFit: 'contain'}} />
       <div className="ps-4">
         <h4 className="fw-bold mb-20">{title}</h4>
         <p>{desc}</p>

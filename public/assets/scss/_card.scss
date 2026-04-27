@@ -42,6 +42,17 @@
     .icon {
         height: 38px;
     }
+        .card-icon {
+                width: 48px;
+                height: 48px;
+                object-fit: contain;
+        }
+}
+
+@media (max-width: 767px) {
+    .card-style-three {
+        .card-icon { width: 36px; height: 36px; }
+    }
 }
 // Card Four
 .card-style-four {
@@ -603,4 +614,13 @@
             }
         }
     }
+}
+
+/* Utility: force icons to white */
+.icon-white {
+    /* For raster images */
+    filter: brightness(0) invert(1);
+    /* If using SVGs as mask, we can fallback to masking (keeps shape) */
+    mask-image: none;
+    -webkit-mask-image: none;
 }

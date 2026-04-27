@@ -31,7 +31,7 @@ function ServiceNav({
   return (
     <li>
       <Link href={url} className={`d-flex align-items-center w-100 ${active ? 'active' : ''}`}>
-        <Image src={icon} alt="icon" className="lazy-img" />
+        <Image src={icon} alt="icon" className="lazy-img icon-white" />
         <span>{title}</span>
       </Link>
     </li>
@@ -43,7 +43,7 @@ function CardItem({ icon, title, subtitle }: { icon: StaticImageData; title: str
   return (
     <div className="card-style-sixteen text-center mt-40">
       <div className="icon m-auto tran3s rounded-circle d-flex align-items-center justify-content-center">
-        <Image src={icon} alt="icon" className="lazy-img" />
+        <Image src={icon} alt="icon" className="lazy-img icon-white" />
       </div>
       <h4 className="fw-bold mt-35 lg-mt-30 mb-15">{title}</h4>
       <p className="m0">{subtitle}</p>
@@ -339,7 +339,7 @@ const CarValueEstimator: React.FC = () => {
                 </div>
 
                 <p className="small text-muted mt-3 mb-0">
-                  Estimates are indicative and may vary by market/condition. Images served from your local library.
+                  Estimates are indicative and may vary by market/condition. Images served from local library.
                 </p>
               </div>
 
